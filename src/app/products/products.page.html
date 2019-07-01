@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Products</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-md="3" size="12">
+        <ion-card>
+          <ion-card-header>
+            <!-- <ion-card-title>Filters <ion-icon slot="start" name="add"></ion-icon></ion-card-title> -->
+            <!-- <ion-icon slot="start" name="add"></ion-icon> -->
+            <h1>Filters <ion-icon *ngIf="clearFilters" slot="end" name="close" (click)="onClearFilters()"></ion-icon></h1>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list>
+              <ion-item>
+                <ion-input type="search" placeholder="Search by code" (input)="saveFilters(floor, section, $event.target.value)" [(ngModel)]="search"></ion-input>
+              </ion-item>
+            </ion-list>
+            <ion-list>
+              <ion-list-header>
+                <ion-label>Floors</ion-label>
+              </ion-list-header>
+              <ion-item *ngFor="let item of floors">
+                <ion-text (click)="onSelect(item, section, true)" [ngClass]="{'active': item === floor}">
+                  Floor {{item}}
+                </ion-text>
+              </ion-item>
+            </ion-list>
+            <ion-list>
+              <ion-list-header>
+                <ion-label>Sections</ion-label>
+              </ion-list-header>
+              <ion-item *ngFor="let item of sections">
+                <ion-text (click)="onSelect(floor, item, false)" [ngClass]="{'active': item === section}">
+                  Section {{item}}
+                </ion-text>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size-md="9" size="12">
+        <ion-card *ngFor="let item of products | search: search; let l = count; let i = index">
+          <ion-card-content>
+            <ion-text *ngIf="i === 0" color="tertiary">
+              Showing {{l}} of {{productsCount}}
+            </ion-text>
+            <ion-item>
+              <ion-icon name="create" slot="end" color="primary" (click)="onEdit(item.code)"></ion-icon>
+              <ion-text color="primary">
+                <h2>{{item.code}}</h2>
+              </ion-text>
+            </ion-item>
+            <ion-text>
+              <p><strong>Quantity: </strong>{{item.quantity}}</p>
+              <p><strong>Location: </strong>{{item.floor}} / {{item.section}}</p>
+            </ion-text>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
