@@ -2,7 +2,7 @@
 This application is for inserting products into the warehouse and also editing and filtering the product
 
 ## Online demo: 
-https://ng-warehouse.web.app
+https://iwarehouseapp.web.app
 
 ### Installation
 
