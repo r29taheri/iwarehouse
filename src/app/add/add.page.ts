@@ -5,6 +5,7 @@ import { Product } from '../models/product';
 import { codeChecker } from '../validators/codeChecker';
 import { ActivatedRoute, Router } from '@angular/router';
 import { quantityChecker } from '../validators/quantityChecker';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-add',
@@ -26,9 +27,17 @@ export class AddPage implements OnInit {
   buttonTitle: string = "Add product";
   showMessage: boolean = false;
   errorMessage: string = '';
-  constructor(private productService: ProductService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private productService: ProductService, private route: ActivatedRoute, private router: Router, private toastController: ToastController) { }
   get formProductControls(): any {
     return this.product['controls'];
+  }
+  async presentToast(message: string, color: string) {
+    const toast = await this.toastController.create({
+      message,
+      color,
+      duration: 2000
+    });
+    toast.present();
   }
   onAdd() {
     if (this.product.invalid) {
@@ -40,28 +49,19 @@ export class AddPage implements OnInit {
       this.products.forEach(element => {
         if(element.code === this.product.value.code.toUpperCase()) {
           isUnique=false; 
-          this.errorMessage = "There is a product with this code,\n Please change the code.";
-          setTimeout(() => {
-            this.errorMessage = "";
-          }, 10000);
+          this.presentToast("There is a product with this code, please change the code.", "warning");
         }
       });
       if(isUnique) {
         this.productService.addProduct(this.product.value.code.toUpperCase(), this.product.value.quantity, +this.product.value.floor, +this.product.value.section);
-        this.showMessage = true;
+        this.presentToast("Product is added successfully.", "success");
         this.product.reset();
-        setTimeout(() => {
-          this.showMessage = false;
-        }, 2000);
       }
     }
     if(this.editMode) {
       this.productService.updateProject(this.editProduct.code, this.product.value.quantity, +this.product.value.floor, +this.product.value.section);
-      this.showMessage = true;
-        setTimeout(() => {
-          this.showMessage = false;
-          this.router.navigateByUrl("/tabs/products");
-        }, 1000);
+      this.presentToast("Product is updated successfully.", "success");
+      this.router.navigateByUrl("/tabs/products");
     }
   }
   getFloorAndSection() {

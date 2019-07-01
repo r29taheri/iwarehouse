@@ -52,11 +52,16 @@ export class ProductsPage {
   saveFilters(floor: number, section: number, search: string) {
     this.clearFilters = true;
     const filters = {
-      floor : floor ? floor : undefined,
-      section : section ? section : undefined,
-      search
+      floor: floor ? floor : undefined,
+      section: section ? section : undefined,
+      search: search ? search : undefined
     }
-    sessionStorage.setItem('filters', JSON.stringify(filters));
+    if(filters.floor || filters.search || filters.section)
+      sessionStorage.setItem('filters', JSON.stringify(filters));
+    else {
+      sessionStorage.removeItem('filters');
+      this.clearFilters = false;
+    }
   }
   onClearFilters() {
     this.clearFilters = false;

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="secondary">
     <ion-title>Products</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -12,20 +12,20 @@
           <ion-card-header>
             <!-- <ion-card-title>Filters <ion-icon slot="start" name="add"></ion-icon></ion-card-title> -->
             <!-- <ion-icon slot="start" name="add"></ion-icon> -->
-            <h1>Filters <ion-icon *ngIf="clearFilters" slot="end" name="close" (click)="onClearFilters()"></ion-icon></h1>
+            <h1>Filters <ion-icon class="cursor-pointer" *ngIf="clearFilters" slot="end" name="close" (click)="onClearFilters()"></ion-icon></h1>
           </ion-card-header>
           <ion-card-content>
             <ion-list>
               <ion-item>
-                <ion-input type="search" placeholder="Search by code" (input)="saveFilters(floor, section, $event.target.value)" [(ngModel)]="search"></ion-input>
+                <ion-input type="search" placeholder="Search by code" clearInput (ionInput)="saveFilters(floor, section, $event.target.value)" [(ngModel)]="search"></ion-input>
               </ion-item>
             </ion-list>
             <ion-list>
               <ion-list-header>
                 <ion-label>Floors</ion-label>
               </ion-list-header>
-              <ion-item *ngFor="let item of floors">
-                <ion-text (click)="onSelect(item, section, true)" [ngClass]="{'active': item === floor}">
+              <ion-item class="cursor-pointer" (click)="onSelect(item, section, true)" *ngFor="let item of floors">
+                <ion-text [ngClass]="{'active': item === floor}">
                   Floor {{item}}
                 </ion-text>
               </ion-item>
@@ -34,8 +34,8 @@
               <ion-list-header>
                 <ion-label>Sections</ion-label>
               </ion-list-header>
-              <ion-item *ngFor="let item of sections">
-                <ion-text (click)="onSelect(floor, item, false)" [ngClass]="{'active': item === section}">
+              <ion-item class="cursor-pointer" (click)="onSelect(floor, item, false)" *ngFor="let item of sections">
+                <ion-text [ngClass]="{'active': item === section}">
                   Section {{item}}
                 </ion-text>
               </ion-item>
@@ -50,7 +50,7 @@
               Showing {{l}} of {{productsCount}}
             </ion-text>
             <ion-item>
-              <ion-icon name="create" slot="end" color="primary" (click)="onEdit(item.code)"></ion-icon>
+              <ion-icon name="create" class="cursor-pointer" slot="end" color="primary" (click)="onEdit(item.code)"></ion-icon>
               <ion-text color="primary">
                 <h2>{{item.code}}</h2>
               </ion-text>

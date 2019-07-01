@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="secondary">
     <ion-title>{{buttonTitle}}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -31,13 +31,13 @@
             <ion-item>
               <ion-label>Floor:</ion-label>
               <ion-select placeholder="Select floor" formControlName="floor">
-                  <ion-select-option *ngFor="let floor of floors" [value]="floor">{{floor}}</ion-select-option>
+                  <ion-select-option *ngFor="let floor of floors" [value]="floor">Floor {{floor}}</ion-select-option>
               </ion-select>
             </ion-item>
             <ion-item>
               <ion-label>Section:</ion-label>
               <ion-select placeholder="Select section" formControlName="section">
-                  <ion-select-option *ngFor="let section of sections" [value]="section">{{section}}</ion-select-option>
+                  <ion-select-option *ngFor="let section of sections" [value]="section">Section {{section}}</ion-select-option>
               </ion-select>
             </ion-item>
             <ion-item color="success" *ngIf="showMessage">
