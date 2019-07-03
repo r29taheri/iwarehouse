@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-products',
   templateUrl: './products.page.html',
-  styleUrls: ['./products.page.scss'],
+  styleUrls: ['./products.page.css'],
 })
 export class ProductsPage {
   products: Array<Product> = new Array<Product>();

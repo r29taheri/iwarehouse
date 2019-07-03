@@ -10,7 +10,7 @@ import { ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-add',
   templateUrl: './add.page.html',
-  styleUrls: ['./add.page.scss'],
+  styleUrls: ['./add.page.css'],
 })
 export class AddPage implements OnInit {
   products: Array<Product> = new Array<Product>();
@@ -35,7 +35,7 @@ export class AddPage implements OnInit {
     const toast = await this.toastController.create({
       message,
       color,
-      duration: 2000
+      duration: 1500
     });
     toast.present();
   }
